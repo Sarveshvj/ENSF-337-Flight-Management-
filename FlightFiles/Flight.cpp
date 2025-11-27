@@ -47,9 +47,9 @@ void Flight::setRoute(Route* r) {
 }
 
 //Helper Functions
-bool Flight::seatAvailable(int row, char col) const{
+bool Flight::seatAvailable(int row, char col) {
     if(col>= 'A' || col<= 'F'){
-        int col_index = seatindex(col); // Helper function that will be implemented under seat class
+        int col_index = seatindex(col); 
         Seat* s = seats.at(row-1).at(col_index);
         return s->isEmpty();
     }
@@ -63,7 +63,7 @@ void Flight::addPassenger(Passenger& p){
     int row = p.getRow(); //Passenger getter function
     char col = p.getCol(); //Passenger getter function
 
-    int col_index = seatindex(col); // Helper function that will be implemented under seat class
+    int col_index = seatindex(col);
 
     Seat* s = seats.at(row-1).at(col_index);
 
@@ -78,17 +78,29 @@ void Flight::addPassenger(Passenger& p){
 void Flight::removePassenger(int row, char col){
     if(row < 1 || row > numRows){
         std::cout<<"Row entered is invalid, please try again. \n"<<std::endl;
+        return;
     }
     if(col < 'A' || col > 'F'){
         std::cout<<"The seat letter you have chosen is invalid, please enter a valid seat.\n"<<std::endl;
+        return;
     }
 
-    int col_index = seatindex(col); // Helper function that will be implemented under seat class
+    int col_index = seatindex(col);
 
-    Seat* s = seats.at(row-1).at(col_index);   
+    Seat* s = seats.at(row-1).at(col_index);
 
-    delete s;
-    s == nullptr;
+    if(s == nullptr){
+        std::cout<<"Internal error: seat not initialized. \n"<<std::endl;
+        return;
+    }
+
+    if(s->isEmpty()){
+        std::cout<<"There is no passenger in the seat. \n"<<std::endl;
+        return;
+    }
+
+    s->setOccupant(nullptr); // Setter function in passenger
+
 }
 
 #endif

@@ -34,10 +34,11 @@ class Flight {
     void setRoute(Route* r);
 
     //Helper
-    bool seatAvailable(int row, char col) const;
+    bool seatAvailable(int row, char col);
     void addPassenger(Passenger& p);
-    void removePassenger(int id);
+    void removePassenger(int row, char col);
     void displaySeatMap() const;
     void displayPassengers() const;
+    int seatindex(char col);
 };
 #endif
