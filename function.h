@@ -58,6 +58,7 @@ class Airline {
     private:
     string name;
     vector<Flight*> flights;
+    void displayfilghts() const;
 
     public:
     // Getters Setters Ctors
@@ -65,4 +66,5 @@ class Airline {
     void passengerFromfile(const string& filename);
     Flight* findFlight(string& id);
     void addFlight(Flight& flight);
+    const vector<Flight*>& getFlights() const;
 };
