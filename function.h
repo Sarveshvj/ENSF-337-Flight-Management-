@@ -48,7 +48,7 @@ class Airline {
     void flightsFromfile(const string& filename);
     void passengerFromfile(const string& filename);
     Flight* findFlight(string& id);
-    void addFlight(Flight& flight)
+    void addFlight(Flight& flight);
 };
 
 class Flight {
