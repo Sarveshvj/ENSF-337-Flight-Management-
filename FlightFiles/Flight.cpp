@@ -1,5 +1,5 @@
 #include "Flight.h"
-
+#include <iostream>
 #ifndef FLIGHT_CPP
 //Ctor
 
@@ -45,4 +45,18 @@ void Flight::setSeatsPerRow(int cols) {
 void Flight::setRoute(Route* r) {
     route = r;
 }
+
+//Helper Functions
+bool Flight::seatAvailable(int row, char col) const{
+    if(col>= 'A' || col<= 'F'){
+        int col_index = seatindex(col); // Helper function that will be implemented under seat class
+        Seat* s = seats.at(row-1).at(col_index);
+        return s->isEmpty();
+    }
+    else{
+        std::cout<<"The character you have entered is not valid, please enter a valid seat"<<std::endl;
+        return false;
+    }
+}
+
 #endif
