@@ -1,6 +1,6 @@
 #include <vector>
 #include <string>
-
+#include <iostream>
 #include "../function.h"
 
 using std::string;
