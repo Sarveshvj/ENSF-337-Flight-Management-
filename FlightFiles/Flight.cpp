@@ -54,9 +54,26 @@ bool Flight::seatAvailable(int row, char col) const{
         return s->isEmpty();
     }
     else{
-        std::cout<<"The character you have entered is not valid, please enter a valid seat"<<std::endl;
+        std::cout<<"The character you have entered is not valid, please enter a valid seat.\n"<<std::endl;
         return false;
     }
 }
+
+void Flight::addPassenger(Passenger& p){
+    int row = p.getRow(); //Passenger getter function
+    char col = p.getCol(); //Passenger getter function
+
+    int col_index = seatindex(col); // Helper function that will be implemented under seat class
+
+    Seat* s = seats.at(row-1).at(col_index);
+
+    if(s->isEmpty()){
+        s->setoccupant(&p); // Seat setter function
+    }
+    else{
+        std::cout<<"The seat chosen is occupied \n Please re-enter the passenger info. \n"<<std::endl;
+    }
+}
+
 
 #endif
