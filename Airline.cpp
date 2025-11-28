@@ -79,9 +79,6 @@ void Airline::passengerFromfile(const string& filename) {
 }
 
 void Airline::displayFlights() const {
-    using cout;
-    using endl;
-
     cout << "\nHere is a list of available flights.Please select one:\n";
 
     if (flights.empty()) {
