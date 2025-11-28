@@ -70,4 +70,8 @@ class Airline {
     const vector<Flight*>& getFlights() const;
 };
 
+<<<<<<< HEAD
 
+=======
+https://prod.liveshare.vsengsaas.visualstudio.com/join?527CD721339FFEBD92C479A1A22CCFCC15EA
+>>>>>>> 4e1251448a674b06b9002b3d5e12cf4496b7e811
