@@ -1,11 +1,9 @@
 #include "Flight.h"
-#include "seat.cpp"
-#include "passenger.cpp"
-#include "route.cpp"
+#include "route.h"
+#include "seat.h"
+#include "passenger.h"
 #include <iostream>
 #include <iomanip>
-#ifndef FLIGHT_CPP
-#define FLIGHT_CPP
 using namespace std;
 
 //Ctors
@@ -13,6 +11,7 @@ Flight::Flight()
 : flightID(""), numRows(0), seatsPerRow(0), route(nullptr)
 {
 }
+
 Flight::Flight(string& id, int rows, int cols, Route* r)
 : flightID(id), numRows(rows), seatsPerRow(cols), route(r)
 {
@@ -92,16 +91,13 @@ void Flight::addPassenger(){
     cout <<"Enter the passenger's desired seat: ";
     cin >> seat;
     Passenger* p = new Passenger(fname, lname, phone_num, id, row, seat);
-    
-    int row = p->getRow(); //Passenger getter function
-    char col = p->getSeat(); //Passenger getter function
 
-    int col_index = seatindex(col);
+    int col_index = seatindex(seat);
 
     Seat*& s = seats.at(row-1).at(col_index);
 
     if(s == nullptr){
-        s = new Seat(row, col);
+        s = new Seat(row, seat);
     }
     if(s->isEmpty()){
         s->setOccupant(p);
@@ -110,9 +106,10 @@ void Flight::addPassenger(){
         cout<<"The seat chosen is occupied \n Please re-enter the passenger info. \n"<<endl;
     }
 }
+
 void Flight::addPassengerFromFile(Passenger& p){
-    int row = p.getRow(); //Passenger getter function
-    char col = p.getSeat(); //Passenger getter function
+    int row = p.getRow();
+    char col = p.getSeat();
 
     int col_index = seatindex(col);
 
@@ -128,6 +125,7 @@ void Flight::addPassengerFromFile(Passenger& p){
         cout<<"The seat chosen is occupied \n Please re-enter the passenger info. \n"<<endl;
     }
 }
+
 void Flight::removePassenger(){
     int pid;
     while(1){
@@ -147,15 +145,13 @@ void Flight::removePassenger(){
                 if(s!= nullptr && pid == p->getId()){
                     cout<<"Passenger "<<p->getFirstName()<<" "<<p->getLastName()<<" was successfully removed from flight "<< flightID<<endl;
                     delete p;
-                    s->setOccupant(nullptr); // Setter function in passenger
+                    s->setOccupant(nullptr);
                     return;
                 }
             }
         }
         cout<<"Passenger was not found please retry"<<endl;
-        continue;
     }
-    
 }
 
 void Flight::displaySeatMap() const {
@@ -199,12 +195,12 @@ void Flight::displayPassengers() const {
                 Passenger* p = s->getOccupant();
 
                 cout << left
-                     << setw(12) << p->getFirstName() //passenger getter
-                     << setw(12) << p->getLastName() //passenger getter
-                     << setw(15) << p->getPhone() //passenger getter
-                     << setw(6)  << p->getRow() //passenger getter
-                     << setw(6)  << p->getSeat() //passenger getter
-                     << setw(8)  << p->getId()<< endl; //passenger getter
+                     << setw(12) << p->getFirstName()
+                     << setw(12) << p->getLastName()
+                     << setw(15) << p->getPhone()
+                     << setw(6)  << p->getRow()
+                     << setw(6)  << p->getSeat()
+                     << setw(8)  << p->getId()<< endl;
             }
         }
     }
@@ -218,5 +214,3 @@ int Flight::seatindex(char col){
         return col- 'A';
     }
 }
-
-#endif

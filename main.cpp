@@ -1,4 +1,11 @@
-#include "airline.cpp"
+#include "airline.h"
+#include "flight.h"
+#include "passenger.h"
+#include "route.h"
+#include "seat.h"
+#include <iostream>
+
+using namespace std;
 
 void displayHeader();
 
@@ -10,7 +17,7 @@ int menu();
 
 void cleanStandardInputStream(void);
 
-void main(void){
+int main(void){
     Airline airline;
     airline.flightsFromfile("flights.txt");
     airline.passengerFromfile("passengers.txt");

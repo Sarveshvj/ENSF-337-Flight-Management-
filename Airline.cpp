@@ -1,5 +1,5 @@
 #include "Airline.h"
-#include "Flight.cpp"
+#include "Flight.h"
 #include <fstream>
 #include <iostream>
 #include <iomanip>
