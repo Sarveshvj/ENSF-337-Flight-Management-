@@ -17,8 +17,12 @@ class Flight {
     Route* route;
     vector<vector<Seat*>> seats;
     
-    // Ctor
+    // Ctors
+    Flight();
     Flight(string& id, int rows, int cols, Route* r);
+
+    //Destructor
+    ~Flight();
     
     //Getters
     string getFlightID() const;
@@ -34,7 +38,6 @@ class Flight {
     void setRoute(Route* r);
 
     //Helper
-    bool seatAvailable(int row, char col);
     void addPassenger(Passenger& p);
     void removePassenger(int row, char col);
     void displaySeatMap() const;

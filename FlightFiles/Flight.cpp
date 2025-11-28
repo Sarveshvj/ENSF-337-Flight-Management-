@@ -2,16 +2,38 @@
 #include <iostream>
 #include <iomanip>
 #ifndef FLIGHT_CPP
+#define FLIGHT_CPP
 using std::cout;
 using std::endl;
 using std::left;
 using std::setw;
 
-//Ctor
-
+//Ctors
+Flight::Flight()
+: flightID(""), numRows(0), seatsPerRow(0), route(nullptr)
+{
+}
 Flight::Flight(string& id, int rows, int cols, Route* r)
 : flightID(id), numRows(rows), seatsPerRow(cols), route(r)
 {
+    seats.resize(numRows);
+
+    for (int i = 0; i < numRows; ++i) {
+        seats[i].resize(seatsPerRow);
+        for (int j = 0; j < seatsPerRow; ++j) {
+            seats[i][j] = nullptr;
+        }
+    }
+}
+
+//Destructor
+Flight::~Flight() {
+    for (int i = 0; i < numRows; ++i) {
+        for (int j = 0; j < seatsPerRow; ++j) {
+            delete seats[i][j];
+            seats[i][j] = nullptr;
+        }
+    }
 }
 
 //Getters
@@ -53,32 +75,19 @@ void Flight::setRoute(Route* r) {
 }
 
 //Helper Functions
-bool Flight::seatAvailable(int row, char col) {
-    if (row <= 0 || row > numRows) {
-        cout << "Row entered is invalid, please try again.\n" << endl;
-        return false;
-    }
-
-    int col_index = seatindex(col);
-    if (col_index < 0 || col_index >= seatsPerRow) {
-        cout << "The seat you have chosen is invalid, please enter a valid seat.\n" << endl;
-        return false;
-    }
-
-    Seat* s = seats.at(row - 1).at(col_index);
-    return s->isEmpty();
-}
-
 void Flight::addPassenger(Passenger& p){
     int row = p.getRow(); //Passenger getter function
     char col = p.getCol(); //Passenger getter function
 
     int col_index = seatindex(col);
 
-    Seat* s = seats.at(row-1).at(col_index);
+    Seat*& s = seats.at(row-1).at(col_index);
 
+    if(s == nullptr){
+        s = new Seat(row, col);
+    }
     if(s->isEmpty()){
-        s->setoccupant(&p); // Seat setter function
+        s->setOccupant(&p);
     }
     else{
         cout<<"The seat chosen is occupied \n Please re-enter the passenger info. \n"<<endl;
@@ -168,7 +177,7 @@ void Flight::displayPassengers() const {
 }
 
 int Flight::seatindex(char col){
-    if(col < 'A' || col >> 'F'){return -1;}
+    if(col < 'A' || col > 'F'){return -1;}
     else{
         return col- 'A';
     }
