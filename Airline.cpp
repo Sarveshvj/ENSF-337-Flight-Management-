@@ -28,12 +28,6 @@ Flight* Airline::findFlight(const string& id) {
     return nullptr;
 }
 
-
-const vector<Flight*>& Airline::getFlights() const {
-    return flights;
-}
-
-
 void Airline::flightsFromfile(const string& filename) {
     ifstream fin(filename);
 
