@@ -1,4 +1,7 @@
 #include "Flight.h"
+#include "seat.cpp"
+#include "passenger.cpp"
+#include "route.cpp"
 #include <iostream>
 #include <iomanip>
 #ifndef FLIGHT_CPP
@@ -77,7 +80,7 @@ void Flight::setRoute(Route* r) {
 //Helper Functions
 void Flight::addPassenger(Passenger& p){
     int row = p.getRow(); //Passenger getter function
-    char col = p.getCol(); //Passenger getter function
+    char col = p.getSeat(); //Passenger getter function
 
     int col_index = seatindex(col);
 
@@ -144,7 +147,7 @@ void Flight::displaySeatMap() const {
 }
 
 void Flight::displayPassengers() const {
-    cout<<"Passenger List (Flight:"<<flightID<<" from "<<route->getSource()<<" to "<<route->getDest()<<")\n\n";
+    cout<<"Passenger List (Flight:"<<flightID<<" from "<<route->getSource()<<" to "<<route->getDestination()<<")\n\n";
 
     cout<<left
         <<setw(12) <<"First Name"
@@ -160,7 +163,7 @@ void Flight::displayPassengers() const {
         for(int j = 0; j<seatsPerRow; j++){
             Seat* s = seats.at(i).at(j);
             if(s && !s->isEmpty()){
-                Passenger* p = s->getPassenger();
+                Passenger* p = s->getOccupant();
 
                 cout << left
                      << setw(12) << p->getFirstName() //passenger getter
