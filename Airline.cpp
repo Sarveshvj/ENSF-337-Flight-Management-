@@ -1,4 +1,5 @@
 #include "Airline.h"
+#include "Flight.cpp"
 #include <fstream>
 #include <iostream>
 #include <iomanip>
@@ -22,7 +23,7 @@ void Airline::addFlight(Flight* flight) {
 Flight* Airline::findFlight(const string& id) {
     for (int i = 0; i < flights.size(); i++) {
 		Flight* f = flights[i]; 
-        if (f->getFlightId() == id)
+        if (f->getFlightID() == id)
             return f;
     }
     return nullptr;

@@ -5,7 +5,7 @@
 #include <string>
 #include <iostream>
 
-#include "Flight.h"
+#include "Flight.cpp"
 
 class Airline {
 private:

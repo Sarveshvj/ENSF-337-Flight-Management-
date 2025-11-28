@@ -16,7 +16,8 @@ class Flight {
     int seatsPerRow;
     Route* route;
     vector<vector<Seat*>> seats;
-    
+
+    public:   
     // Ctors
     Flight();
     Flight(string& id, int rows, int cols, Route* r);
