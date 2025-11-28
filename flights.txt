@@ -1,0 +1,4 @@
+WJ1145 Calgary Paris 24 6
+WJ2145 Vancouver Dubai 24 6
+WJ3145 Calgary London 24 6
+WJ4145 Calgary Budapest 24 6

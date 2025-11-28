@@ -11,7 +11,6 @@ class Airline {
 private:
     string name;
     vector<Flight*> flights;
-	void displayfilghts() const;
 
 public:
 	Airline();
@@ -21,10 +20,12 @@ public:
     void passengerFromfile(const string& filename);
 
     void addFlight(Flight* f);
-    Flight* findFlight(const string& id);
+    Flight* findFlightByIndex(int i);
 
     const vector<Flight*>& getFlights() const{ return flights; }
 	void saveData(const string& filename) const;
+    void displayFlights() const;
+    Flight* findFlightByID(const string& id);
 };
 
 #endif

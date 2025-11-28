@@ -6,10 +6,7 @@
 #include <iomanip>
 #ifndef FLIGHT_CPP
 #define FLIGHT_CPP
-using std::cout;
-using std::endl;
-using std::left;
-using std::setw;
+using namespace std;
 
 //Ctors
 Flight::Flight()
@@ -78,7 +75,42 @@ void Flight::setRoute(Route* r) {
 }
 
 //Helper Functions
-void Flight::addPassenger(Passenger& p){
+void Flight::addPassenger(){
+    int id, row;
+    string fname, lname, phone_num;
+    char seat;
+    cout <<"Please enter the passenger id: ";
+    cin >> id;
+    cout <<"Please enter the passenger first name: ";
+    cin >> fname;
+    cout <<"Please enter the passenger last name: ";
+    cin >> lname;
+    cout <<"Please enter the passenger phone number: ";
+    cin >> phone_num;
+    cout <<"Enter the passenger's desired row: ";
+    cin >> row;
+    cout <<"Enter the passenger's desired seat: ";
+    cin >> seat;
+    Passenger* p = new Passenger(fname, lname, phone_num, id, row, seat);
+    
+    int row = p->getRow(); //Passenger getter function
+    char col = p->getSeat(); //Passenger getter function
+
+    int col_index = seatindex(col);
+
+    Seat*& s = seats.at(row-1).at(col_index);
+
+    if(s == nullptr){
+        s = new Seat(row, col);
+    }
+    if(s->isEmpty()){
+        s->setOccupant(p);
+    }
+    else{
+        cout<<"The seat chosen is occupied \n Please re-enter the passenger info. \n"<<endl;
+    }
+}
+void Flight::addPassengerFromFile(Passenger& p){
     int row = p.getRow(); //Passenger getter function
     char col = p.getSeat(); //Passenger getter function
 
@@ -96,33 +128,34 @@ void Flight::addPassenger(Passenger& p){
         cout<<"The seat chosen is occupied \n Please re-enter the passenger info. \n"<<endl;
     }
 }
+void Flight::removePassenger(){
+    int pid;
+    while(1){
+        cout << "Please enter the id of the passenger that needs to be removed:";
+        cin >> pid;
 
-void Flight::removePassenger(int row, char col){
-    if(row < 1 || row > numRows){
-        cout<<"Row entered is invalid, please try again. \n"<<endl;
-        return;
+        Seat* s;
+
+        for(int i = 0; i < numRows; i++){
+            for(int j = 0; j<seatsPerRow; j++){
+                s = seats.at(i).at(j);
+                if(s == nullptr){
+                    cout<<"Internal error: seat not initialized. \n"<<endl;
+                    return;
+                }
+                Passenger* p = s->getOccupant();
+                if(s!= nullptr && pid == p->getId()){
+                    cout<<"Passenger "<<p->getFirstName()<<" "<<p->getLastName()<<" was successfully removed from flight "<< flightID<<endl;
+                    delete p;
+                    s->setOccupant(nullptr); // Setter function in passenger
+                    return;
+                }
+            }
+        }
+        cout<<"Passenger was not found please retry"<<endl;
+        continue;
     }
-
-    int col_index = seatindex(col);
-    if (col_index < 0 || col_index >= seatsPerRow) {
-    cout<<"The seat letter you have chosen is invalid, please enter a valid seat.\n"<<endl;
-    return;
-    }
-
-    Seat* s = seats.at(row-1).at(col_index);
-
-    if(s == nullptr){
-        cout<<"Internal error: seat not initialized. \n"<<endl;
-        return;
-    }
-
-    if(s->isEmpty()){
-        cout<<"There is no passenger in the seat. \n"<<endl;
-        return;
-    }
-
-    s->setOccupant(nullptr); // Setter function in passenger
-
+    
 }
 
 void Flight::displaySeatMap() const {

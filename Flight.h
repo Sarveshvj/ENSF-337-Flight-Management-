@@ -1,7 +1,6 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include "../function.h"
 
 using std::string;
 using std::vector;
@@ -39,8 +38,9 @@ class Flight {
     void setRoute(Route* r);
 
     //Helper
-    void addPassenger(Passenger& p);
-    void removePassenger(int row, char col);
+    void addPassengerFromFile(Passenger& p);
+    void addPassenger();
+    void removePassenger();
     void displaySeatMap() const;
     void displayPassengers() const;
     int seatindex(char col);
