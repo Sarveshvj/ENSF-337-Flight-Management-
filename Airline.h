@@ -23,7 +23,7 @@ public:
     void addFlight(Flight* f);
     Flight* findFlight(const string& id);
 
-    const vector<Flight*>& getFlights() const;
+    const vector<Flight*>& getFlights() const{ return flights; }
 };
 
 #endif
