@@ -47,11 +47,12 @@ class Flight {
     vector<vector<Seat*>> seats;
     
     public:
-    bool seatAvailable(int row, char col) const;
+    bool seatAvailable(int row, char col);
     void addPassenger(Passenger& p);
-    void removePassenger(int id);
+    void removePassenger(int row, char col);
     void displaySeatMap() const;
     void displayPassengers() const;
+    int seatindex(char col);
 };
 
 class Airline {
