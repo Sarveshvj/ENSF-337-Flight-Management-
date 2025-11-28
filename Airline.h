@@ -24,6 +24,7 @@ public:
     Flight* findFlight(const string& id);
 
     const vector<Flight*>& getFlights() const{ return flights; }
+	void saveData(const string& filename) const;
 };
 
 #endif
