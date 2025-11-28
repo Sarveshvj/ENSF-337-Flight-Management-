@@ -38,19 +38,6 @@ class Route {
     // Getters Setters Ctors
 };
 
-class Airline {
-    private:
-    string name;
-    vector<Flight*> flights;
-
-    public:
-    // Getters Setters Ctors
-    void flightsFromfile(const string& filename);
-    void passengerFromfile(const string& filename);
-    Flight* findFlight(string& id);
-    void addFlight(Flight& flight);
-};
-
 class Flight {
     private:
     string flightID;
@@ -66,4 +53,19 @@ class Flight {
     void displaySeatMap() const;
     void displayPassengers() const;
     int seatindex(char col);
+};
+
+class Airline {
+    private:
+    string name;
+    vector<Flight*> flights;
+    void displayfilghts() const;
+
+    public:
+    // Getters Setters Ctors
+    void flightsFromfile(const string& filename);
+    void passengerFromfile(const string& filename);
+    Flight* findFlight(string& id);
+    void addFlight(Flight& flight);
+    const vector<Flight*>& getFlights() const;
 };
