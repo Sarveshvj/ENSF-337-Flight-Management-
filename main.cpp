@@ -23,6 +23,10 @@ int main(void){
     while(1){
         int choice = menu();
         if(choice != 1 && primary == nullptr){
+            if(choice == 7){
+                cout << "Program terminated.";
+                exit(1);
+            }
             cout<<"Please select a flight before selecting menu functions"<<endl;
             continue;
         }
@@ -76,14 +80,6 @@ int main(void){
     
 }
 
-void clearScreen(void)
-{
-    #ifdef UNIX
-    system("clear");
-    #else
-    system("clr");
-    #endif
-}
 
 void cleanStandardInputStream (void)
 {
@@ -108,17 +104,27 @@ void pressEnter(){
     cin.get();
 }
 
+void clearScreen(void)
+{
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
+}
+
 int menu(){
     int choice = -1;
     clearScreen();
     cout << "Please select one the following options:\n\n";
-    cout << "1. Display Flight Seat Map.\n";
-    cout << "2. Display Passengers Information.\n";
-    cout << "3. Add a New Passenger.\n";
-    cout << "4. Remove an Existing Passenger\n";
-    cout << "5. Save data\n";
-    cout << "6. Quit. \n";
-    cout << "\nEnter your choice: (1, 2, 3, 4, or 5) ";
+    cout << "1. Select a Flight.\n";
+    cout << "2. Display Flight Seat Map.\n";
+    cout << "3. Display Passengers Information.\n";
+    cout << "4. Add a New Passenger.\n";
+    cout << "5. Remove an Existing Passenger\n";
+    cout << "6. Save data\n";
+    cout << "7. Quit. \n";
+    cout << "\nEnter your choice (1-7): ";
     cin >> choice;
     cleanStandardInputStream();
     return choice;

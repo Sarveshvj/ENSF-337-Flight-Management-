@@ -6,7 +6,7 @@
 using namespace std;
 
 Airline::Airline()
-    : name("Westjet"){}
+    : name("Westjet") {}
 
 Airline::~Airline() {
     for (int i = 0; i < flights.size(); i++) {
@@ -14,14 +14,13 @@ Airline::~Airline() {
     }
 }
 
-
 void Airline::addFlight(Flight* flight) {
     flights.push_back(flight);
 }
 
 Flight* Airline::findFlightByID(const string& id) {
     for (int i = 0; i < flights.size(); i++) {
-		Flight* f = flights[i]; 
+        Flight* f = flights[i];
         if (f->getFlightID() == id)
             return f;
     }
@@ -29,12 +28,11 @@ Flight* Airline::findFlightByID(const string& id) {
 }
 
 Flight* Airline::findFlightByIndex(int i) {
-    if(i > flights.size() || i < 1){
-        cout<<"Invalid Flight chosen please enter a valid choice"<<endl;
+    if (i > flights.size() || i < 1) {
+        cout << "Invalid Flight chosen please enter a valid choice" << endl;
         return nullptr;
-    }
-    else{
-        return flights.at(i-1);
+    } else {
+        return flights.at(i - 1);
     }
 }
 
@@ -52,12 +50,11 @@ void Airline::flightsFromfile(const string& filename) {
     while (fin >> id >> from >> to >> rows >> seats_per_row) {
         Route route(from, to);
 
-        Flight* f = new Flight(id, rows, seats_per_row, &route);
+        Flight* f = new Flight(id, rows, seats_per_row, route);
 
         addFlight(f);
     }
 }
-
 
 void Airline::passengerFromfile(const string& filename) {
     ifstream fin(filename);
@@ -72,7 +69,7 @@ void Airline::passengerFromfile(const string& filename) {
     int id;
 
     while (fin >> flightID >> first >> last >> phone >> seatCode >> id) {
-        
+
         Flight* f = findFlightByID(flightID);
         if (!f) {
             continue;
@@ -82,9 +79,9 @@ void Airline::passengerFromfile(const string& filename) {
         char seatLetter = seatCode[length - 1];
         int row = stoi(seatCode.substr(0, length - 1));
 
-        Passenger newP(first, last, phone, row, seatLetter, id);
+        Passenger newP(first, last, phone, id, row, seatLetter);
 
-        f->addPassengerFromFile(newP);  
+        f->addPassengerFromFile(newP);
     }
 }
 
@@ -98,12 +95,13 @@ void Airline::displayFlights() const {
 
     for (int i = 0; i < flights.size(); i++) {
         if (!flights[i]) continue;
-        const Route* r = flights[i]->getRoute();
-		
-        cout << (i+1) << "." << left
+
+        const Route& r = flights[i]->getRoute();
+
+        cout << (i + 1) << "." << left
              << setw(12) << flights[i]->getFlightID()
-             << setw(12) << r->getSource()
-             << setw(12) << r->getDestination()
+             << setw(12) << r.getSource()
+             << setw(12) << r.getDestination()
              << setw(8)  << flights[i]->getNumRows()
              << setw(8)  << flights[i]->getSeatsPerRow()
              << endl;

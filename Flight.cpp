@@ -7,16 +7,14 @@
 
 using namespace std;
 
-
-//Ctors
+// Ctors
 Flight::Flight()
-: flightID(""), numRows(0), seatsPerRow(0), route(nullptr)
-{
+    : flightID(""), numRows(0), seatsPerRow(0), route(Route("", "")) {
 }
 
-Flight::Flight(string& id, int rows, int cols, Route* r)
-: flightID(id), numRows(rows), seatsPerRow(cols), route(r)
-{
+Flight::Flight(string& id, int rows, int cols, const Route& r)
+    : flightID(id), numRows(rows), seatsPerRow(cols), route(r) {
+
     seats.resize(numRows);
 
     for (int i = 0; i < numRows; ++i) {
@@ -27,7 +25,7 @@ Flight::Flight(string& id, int rows, int cols, Route* r)
     }
 }
 
-//Destructor
+// Destructor
 Flight::~Flight() {
     for (int i = 0; i < numRows; ++i) {
         for (int j = 0; j < seatsPerRow; ++j) {
@@ -37,7 +35,7 @@ Flight::~Flight() {
     }
 }
 
-//Getters
+// Getters
 string Flight::getFlightID() const {
     return flightID;
 }
@@ -50,7 +48,7 @@ int Flight::getSeatsPerRow() const {
     return seatsPerRow;
 }
 
-Route* Flight::getRoute() const {
+const Route& Flight::getRoute() const {
     return route;
 }
 
@@ -58,7 +56,7 @@ const vector<vector<Seat*>>& Flight::getSeats() const {
     return seats;
 }
 
-//Setters
+// Setters
 void Flight::setFlightID(const string& id) {
     flightID = id;
 }
@@ -71,41 +69,50 @@ void Flight::setSeatsPerRow(int cols) {
     seatsPerRow = cols;
 }
 
-void Flight::setRoute(Route* r) {
+void Flight::setRoute(const Route& r) {
     route = r;
 }
 
-//Helper Functions
-void Flight::addPassenger(){
+// Helper Functions
+void Flight::addPassenger() {
     int id, row;
     string fname, lname, phone_num;
     char seat;
-    cout <<"Please enter the passenger id: ";
+    cout << "Please enter the passenger id: ";
     cin >> id;
-    cout <<"Please enter the passenger first name: ";
+    cout << "Please enter the passenger first name: ";
     cin >> fname;
-    cout <<"Please enter the passenger last name: ";
+    cout << "Please enter the passenger last name: ";
     cin >> lname;
-    cout <<"Please enter the passenger phone number: ";
+    cout << "Please enter the passenger phone number: ";
     cin >> phone_num;
-    cout <<"Enter the passenger's desired row: ";
+    cout << "Enter the passenger's desired row: ";
     cin >> row;
-    cout <<"Enter the passenger's desired seat: ";
+    cout << "Enter the passenger's desired seat: ";
     cin >> seat;
+
     Passenger* p = new Passenger(fname, lname, phone_num, id, row, seat);
 
     int col_index = seatindex(seat);
 
-    Seat*& s = seats.at(row-1).at(col_index);
+    if (row < 1 || row > numRows || col_index < 0 || col_index >= seatsPerRow) {
+        cout << "Invalid row/seat. Row must be between 1 and " << numRows
+             << " and seat between A and "
+             << char('A' + seatsPerRow - 1) << ".\n";
+        delete p;
+        return;
+    }
 
-    if(s == nullptr){
+    Seat*& s = seats.at(row - 1).at(col_index);
+
+    if (s == nullptr) {
         s = new Seat(row, seat);
     }
-    if(s->isEmpty()){
+    if (s->isEmpty()) {
         s->setOccupant(p);
-    }
-    else{
-        cout<<"The seat chosen is occupied \n Please re-enter the passenger info. \n"<<endl;
+    } else {
+        cout << "The seat chosen is occupied \nPlease re-enter the passenger info.\n" << endl;
+        delete p;
     }
 }
 
@@ -129,7 +136,7 @@ void Flight::addPassengerFromFile(Passenger& p) {
     }
 
     if (s->isEmpty()) {
-        Passenger* newP = new Passenger(p);
+        Passenger* newP = new Passenger(p); 
         s->setOccupant(newP);
     } else {
         cout << "Seat " << row << col
@@ -138,73 +145,73 @@ void Flight::addPassengerFromFile(Passenger& p) {
     }
 }
 
-
-void Flight::removePassenger(){
+void Flight::removePassenger() {
     int pid;
-    while(1){
-        cout << "Please enter the id of the passenger that needs to be removed:";
+    while (1) {
+        cout << "Please enter the id of the passenger that needs to be removed: ";
         cin >> pid;
 
         Seat* s;
 
-        for(int i = 0; i < numRows; i++){
-            for(int j = 0; j<seatsPerRow; j++){
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < seatsPerRow; j++) {
                 s = seats.at(i).at(j);
-                if(s == nullptr){
-                    cout<<"Internal error: seat not initialized. \n"<<endl;
+                if (s == nullptr) {
+                    cout << "Internal error: seat not initialized.\n" << endl;
                     return;
                 }
                 Passenger* p = s->getOccupant();
-                if(s!= nullptr && pid == p->getId()){
-                    cout<<"Passenger "<<p->getFirstName()<<" "<<p->getLastName()<<" was successfully removed from flight "<< flightID<<endl;
+                if (p != nullptr && pid == p->getId()) {
+                    cout << "Passenger " << p->getFirstName() << " " << p->getLastName()
+                         << " was successfully removed from flight " << flightID << endl;
                     delete p;
                     s->setOccupant(nullptr);
                     return;
                 }
             }
         }
-        cout<<"Passenger was not found please retry"<<endl;
+        cout << "Passenger was not found please retry" << endl;
     }
 }
 
 void Flight::displaySeatMap() const {
-    for(int i = 0; i<numRows; i++){
-        cout<<"+---+---+---+---+---+---+ \n"<<endl;
+    for (int i = 0; i < numRows; i++) {
+        cout << "+---+---+---+---+---+---+ \n" << endl;
 
-        for(int j = 0; j<seatsPerRow; j++){
+        for (int j = 0; j < seatsPerRow; j++) {
             Seat* s = seats.at(i).at(j);
-            cout<<"| ";
-            if(s && !s->isEmpty()){
-                cout<<"X";
+            cout << "| ";
+            if (s && !s->isEmpty()) {
+                cout << "X";
+            } else {
+                cout << " ";
             }
-            else{
-                cout<<" ";
-            }
-            cout<<" ";
+            cout << " ";
         }
-        cout<<"|\n";
+        cout << "|\n";
     }
-    cout<<"+---+---+---+---+---+---+"<<endl;
-    cout << "<<< Press Return to Continue>>>" << endl;
+    cout << "+---+---+---+---+---+---+" << endl;
 }
 
 void Flight::displayPassengers() const {
-    cout<<"Passenger List (Flight:"<<flightID<<" from "<<route->getSource()<<" to "<<route->getDestination()<<")\n\n";
+    cout << "Passenger List (Flight:" << flightID
+         << " from " << route.getSource()
+         << " to " << route.getDestination() << ")\n\n";
 
-    cout<<left
-        <<setw(12) <<"First Name"
-        <<setw(12) <<"Last Name"
-        <<setw(12) <<"Phone"
-        <<setw(6) <<"Row"
-        <<setw(6) <<"Seat"
-        <<setw(8) <<"ID"<<endl;
-    
-    cout<<"--------------------------------------------------------------\n";
+    cout << left
+         << setw(12) << "First Name"
+         << setw(12) << "Last Name"
+         << setw(12) << "Phone"
+         << setw(6)  << "Row"
+         << setw(6)  << "Seat"
+         << setw(8)  << "ID" << endl;
 
-    for(int i = 0; i<numRows; i++){
-        for(int j = 0; j<seatsPerRow; j++){
+    cout << "--------------------------------------------------------------\n";
+
+    for (int i = 0; i < numRows; i++) {
+        for (int j = 0; j < seatsPerRow; j++) {
             Seat* s = seats.at(i).at(j);
-            if(s && !s->isEmpty()){
+            if (s && !s->isEmpty()) {
                 Passenger* p = s->getOccupant();
 
                 cout << left
@@ -213,17 +220,15 @@ void Flight::displayPassengers() const {
                      << setw(15) << p->getPhone()
                      << setw(6)  << p->getRow()
                      << setw(6)  << p->getSeat()
-                     << setw(8)  << p->getId()<< endl;
+                     << setw(8)  << p->getId() << endl;
             }
         }
     }
-    cout<<"<<<Press Return to Continue>>>"<<endl;
-
 }
 
-int Flight::seatindex(char col){
-    if(col < 'A' || col > 'F'){return -1;}
-    else{
-        return col- 'A';
+int Flight::seatindex(char col) {
+    if (col < 'A' || col > 'F') { return -1; }
+    else {
+        return col - 'A';
     }
 }
