@@ -3,11 +3,9 @@
 
 #include <string>
 #include <vector>
-
-
-class Route;
-class Seat;
-class Passenger;
+#include "route.h"
+#include "seat.h"
+#include "passenger.h"
 
 class Flight {
 private:
