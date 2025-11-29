@@ -1,6 +1,6 @@
 #include "Airline.h"
 
-using namespace::std;
+using namespace std;
 
 void displayHeader();
 

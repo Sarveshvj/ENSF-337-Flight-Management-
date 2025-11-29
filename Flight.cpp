@@ -109,24 +109,35 @@ void Flight::addPassenger(){
     }
 }
 
-void Flight::addPassengerFromFile(Passenger& p){
+void Flight::addPassengerFromFile(Passenger& p) {
     int row = p.getRow();
     char col = p.getSeat();
 
     int col_index = seatindex(col);
 
-    Seat*& s = seats.at(row-1).at(col_index);
+    if (row < 1 || row > numRows || col_index < 0 || col_index >= seatsPerRow) {
+        cout << "Invalid seat " << row << col
+             << " for flight " << flightID
+             << " in passengers file. Skipping this passenger.\n";
+        return;
+    }
 
-    if(s == nullptr){
+    Seat*& s = seats.at(row - 1).at(col_index);
+
+    if (s == nullptr) {
         s = new Seat(row, col);
     }
-    if(s->isEmpty()){
-        s->setOccupant(&p);
-    }
-    else{
-        cout<<"The seat chosen is occupied \n Please re-enter the passenger info. \n"<<endl;
+
+    if (s->isEmpty()) {
+        Passenger* newP = new Passenger(p);
+        s->setOccupant(newP);
+    } else {
+        cout << "Seat " << row << col
+             << " on flight " << flightID
+             << " is already occupied. Skipping duplicate from file.\n";
     }
 }
+
 
 void Flight::removePassenger(){
     int pid;
