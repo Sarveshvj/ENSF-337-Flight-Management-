@@ -1,43 +1,44 @@
-#include <vector>
-#include <string>
-#include <iostream>
-
-using std::string;
-using std::vector;
-
 #ifndef FLIGHT_H
 #define FLIGHT_H
 
+#include <string>
+#include <vector>
+
+
+class Route;
+class Seat;
+class Passenger;
+
 class Flight {
-    private:
-    string flightID;
+private:
+    std::string flightID;
     int numRows;
     int seatsPerRow;
     Route* route;
-    vector<vector<Seat*>> seats;
+    std::vector<std::vector<Seat*>> seats;
 
-    public:   
+public:
     // Ctors
     Flight();
-    Flight(string& id, int rows, int cols, Route* r);
+    Flight(std::string& id, int rows, int cols, Route* r);
 
-    //Destructor
+    // Destructor
     ~Flight();
     
-    //Getters
-    string getFlightID() const;
+    // Getters
+    std::string getFlightID() const;
     int getNumRows() const;
     int getSeatsPerRow() const;
     Route* getRoute() const;
-    const vector<vector<Seat*>>& getSeats() const;
+    const std::vector<std::vector<Seat*>>& getSeats() const;
 
-    //Setters
-    void setFlightID(const string& id);
+    // Setters
+    void setFlightID(const std::string& id);
     void setNumRows(int rows);
     void setSeatsPerRow(int cols);
     void setRoute(Route* r);
 
-    //Helper
+    // Helper / other functions
     void addPassengerFromFile(Passenger& p);
     void addPassenger();
     void removePassenger();
@@ -45,4 +46,5 @@ class Flight {
     void displayPassengers() const;
     int seatindex(char col);
 };
-#endif
+
+#endif // FLIGHT_H
