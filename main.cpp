@@ -6,7 +6,7 @@ void displayHeader();
 
 void pressEnter();
 
-void ClearScreen(void);
+void clearScreen(void);
 
 int menu();
 

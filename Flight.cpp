@@ -4,7 +4,9 @@
 
 #include <iostream>
 #include <iomanip>
-using namespace::std;
+
+using namespace std;
+
 
 //Ctors
 Flight::Flight()

@@ -9,23 +9,24 @@
 
 class Airline {
 private:
-    string name;
-    vector<Flight*> flights;
+    std::string name;
+    std::vector<Flight*> flights;
 
 public:
-	Airline();
+    Airline();
     ~Airline();
 
-    void flightsFromfile(const string& filename);
-    void passengerFromfile(const string& filename);
+    void flightsFromfile(const std::string& filename);
+    void passengerFromfile(const std::string& filename);
 
     void addFlight(Flight* f);
     Flight* findFlightByIndex(int i);
 
-    const vector<Flight*>& getFlights() const{ return flights; }
-	void saveData(const string& filename) const;
+    const std::vector<Flight*>& getFlights() const { return flights; }
+
+    void saveData(const std::string& filename) const;
     void displayFlights() const;
-    Flight* findFlightByID(const string& id);
+    Flight* findFlightByID(const std::string& id);
 };
 
 #endif
