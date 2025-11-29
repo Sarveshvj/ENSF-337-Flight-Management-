@@ -1,11 +1,6 @@
-#include "airline.h"
-#include "flight.h"
-#include "passenger.h"
-#include "route.h"
-#include "seat.h"
-#include <iostream>
+#include "Airline.h"
 
-using namespace std;
+using namespace::std;
 
 void displayHeader();
 

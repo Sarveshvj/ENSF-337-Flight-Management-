@@ -1,10 +1,10 @@
 #include "Flight.h"
 #include "route.h"
 #include "seat.h"
-#include "passenger.h"
+
 #include <iostream>
 #include <iomanip>
-using namespace std;
+using namespace::std;
 
 //Ctors
 Flight::Flight()
