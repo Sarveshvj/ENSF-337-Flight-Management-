@@ -25,18 +25,16 @@ class Seat {
 
     Passenger* getOccupant() const;
 
-
     void setRowNumber(int row);
 
     void setSeatNumber(char seat);
 
     void setOccupant(Passenger* p);
 
-    
     void removeOccupant();
 
-
     bool isEmpty() const;
+    /* PROMISIES: Will return True if occupant points to nothing, otherwise returns False*/
 
 }; 
 #endif
