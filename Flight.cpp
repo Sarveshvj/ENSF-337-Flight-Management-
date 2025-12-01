@@ -106,7 +106,6 @@ void Flight::addPassenger() {
         cout << "Please enter the passenger phone number: ";
         cin.ignore(100, '\n');
         getline(cin, phone_num);
-        cin >> phone_num;
         bool phoneValid =
             phone_num.size() == 12 &&
             isdigit(phone_num[0]) && isdigit(phone_num[1]) && isdigit(phone_num[2]) &&
