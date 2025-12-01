@@ -170,25 +170,31 @@ void Flight::removePassenger() {
         cout << "Please enter the id of the passenger that needs to be removed: ";
         cin >> pid;
 
-        Seat* s;
-
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < seatsPerRow; j++) {
-                s = seats.at(i).at(j);
 
-                Passenger* p = s->getOccupant();
-                if (p != nullptr && pid == p->getId()) {
-                    cout << "Passenger " << p->getFirstName() << " " << p->getLastName()
-                         << " was successfully removed from flight " << flightID << endl;
-                    delete p;
-                    s->setOccupant(nullptr);
-                    return;
+                Seat* s = seats.at(i).at(j);
+
+                if (s != nullptr) {
+                    Passenger* p = s->getOccupant();
+                    if (p != nullptr && pid == p->getId()) {
+
+                        cout << "Passenger " << p->getFirstName() << " "
+                             << p->getLastName()
+                             << " was successfully removed from flight "
+                             << flightID << endl;
+
+                        delete p;
+                        s->setOccupant(nullptr);
+                        return;
+                    }
                 }
             }
         }
         cout << "Passenger was not found please retry" << endl;
     }
 }
+
 
 void Flight::displaySeatMap() const {
     cout << "\nSeat map for flight " << flightID << "\n\n";
