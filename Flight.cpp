@@ -82,25 +82,25 @@ void Flight::addPassenger() {
         cout << "Please enter the passenger id: ";
         cin >> id;
         if(id.size() != 5){
-            cout<<"Please enter a valid 5 character id";
+            cout<<"Please enter a valid 5 character id\n";
             continue;
         }
         cout << "Please enter the passenger first name: ";
         cin >> fname;
         if(fname.empty()){
-            cout<<"Please enter a valid first name";
+            cout<<"Please enter a valid first name\n";
             continue;
         }
         cout << "Please enter the passenger last name: ";
         cin >> lname;
         if(fname.empty()){
-            cout<<"Please enter a valid last name";
+            cout<<"Please enter a valid last name\n";
             continue;
         }
         cout << "Please enter the passenger phone number: ";
         cin >> phone_num;
         if(phone_num.size() != 12){
-            cout<<"Please enter a valid phone number, in format 123-456-7890";
+            cout<<"Please enter a valid phone number, in format 123-456-7890\n";
             continue;
         }
         cout << "Enter the passenger's desired row: ";
@@ -250,25 +250,51 @@ void Flight::displayPassengers() const {
 
     cout << "--------------------------------------------------------------\n";
 
-    for (int i = 0; i < numRows; i++) {
-        for (int j = 0; j < seatsPerRow; j++) {
+    std::vector<Passenger*> plist;
+
+    for (int i = 0; i < numRows; ++i) {
+        for (int j = 0; j < seatsPerRow; ++j) {
             Seat* s = seats.at(i).at(j);
             if (s && !s->isEmpty()) {
-                Passenger* p = s->getOccupant();
-
-                cout << left
-                     << setw(12) << p->getFirstName()
-                     << setw(12) << p->getLastName()
-                     << setw(15) << p->getPhone()
-                     << setw(6)  << p->getRow()
-                     << setw(6)  << p->getSeat()
-                     << setw(8)  << p->getId() << endl;
-                
-                     cout << "--------------------------------------------------------------\n";
+                plist.push_back(s->getOccupant());
             }
         }
     }
+
+    size_t n = plist.size();
+
+    if (n >= 2) {
+        for (size_t i = 0; i < n - 1; ++i) {
+            size_t minIndex = i;
+            for (size_t j = i + 1; j < n; ++j) {
+                if (plist[j]->getId() < plist[minIndex]->getId()) {
+                    minIndex = j;
+                }
+            }
+
+            if (minIndex != i) {
+                Passenger* tmp = plist[i];
+                plist[i] = plist[minIndex];
+                plist[minIndex] = tmp;
+            }
+        }
+    }
+
+    for (size_t k = 0; k < n; ++k) {
+        Passenger* p = plist[k];
+
+        cout << left
+             << setw(12) << p->getFirstName()
+             << setw(12) << p->getLastName()
+             << setw(15) << p->getPhone()
+             << setw(6)  << p->getRow()
+             << setw(6)  << p->getSeat()
+             << setw(8)  << p->getId() << endl;
+        
+        cout << "--------------------------------------------------------------\n";
+    }
 }
+
 
 int Flight::seatindex(char col) {
     if (col < 'A' || col > 'F') { return -1; }

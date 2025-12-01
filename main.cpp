@@ -64,7 +64,6 @@ int main(void){
                     cin >> s;
                     if(toupper(s) == 'Y' || toupper(s) == 'N') {
                         airline.saveData("flight_info.txt");
-                        cout << "All the data in the passenger list were saved.";
                         break;
                     } 
                     cout << "Invalid option";   
