@@ -87,19 +87,19 @@ void Flight::addPassenger() {
         }
         cout << "Please enter the passenger first name: ";
         cin >> fname;
-        if(fname.empty()){
+        if(fname.at(0) == ' '){
             cout<<"Please enter a valid first name\n";
             continue;
         }
         cout << "Please enter the passenger last name: ";
         cin >> lname;
-        if(fname.empty()){
+        if(lname.at(0) == ' '){
             cout<<"Please enter a valid last name\n";
             continue;
         }
         cout << "Please enter the passenger phone number: ";
         cin >> phone_num;
-        if(phone_num.size() != 12){
+        if(phone_num.size() != 12 || phone_num.at(3) != ' ' || phone_num.at(7) != ' '){
             cout<<"Please enter a valid phone number, in format 123 456 7890\n";
             continue;
         }
