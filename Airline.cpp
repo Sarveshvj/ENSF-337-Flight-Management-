@@ -109,3 +109,37 @@ void Airline::displayFlights() const {
     }
 }
 
+void Airline::saveData(const string& filename) const {
+    ofstream fout(filename);
+
+    if (!fout) {
+        cout << "ERROR: Could not open file for saving: " << filename << endl;
+        return;
+    }
+
+    for (int i = 0; i < flights.size(); i++) {
+
+        Flight* f = flights[i];
+        const vector<vector<Seat*>>& seatMap = f->getSeats();
+
+        for (int r = 0; r < f->getNumRows(); r++) {
+            for (int c = 0; c < f->getSeatsPerRow(); c++) {
+
+                Seat* s = seatMap[r][c];
+                if (s && !s->isEmpty()) {
+
+                    Passenger* p = s->getOccupant();
+
+                    fout << f->getFlightID() << " "
+                         << p->getFirstName() << " "
+                         << p->getLastName() << " "
+                         << p->getPhone() << " "
+                         << p->getRow() << p->getSeat() << " "
+                         << p->getId() << "\n";
+                }
+            }
+        }
+    }
+
+    cout << "\nAll the data in the passenger list were saved.\n";
+}
