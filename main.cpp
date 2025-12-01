@@ -33,6 +33,7 @@ int main(void){
 
         switch(choice){
             case 1:
+            clearScreen();
                 int flight_choice;
                 airline.displayFlights();
                 cout<<"Enter your choice: ";
@@ -115,7 +116,6 @@ void clearScreen(void)
 
 int menu(){
     int choice = -1;
-    clearScreen();
     cout << "Please select one the following options:\n\n";
     cout << "1. Select a Flight.\n";
     cout << "2. Display Flight Seat Map.\n";
