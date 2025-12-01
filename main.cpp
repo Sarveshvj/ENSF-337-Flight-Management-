@@ -51,7 +51,6 @@ int main(void){
                 continue;
             case 4:
                 primary->addPassenger();
-                pressEnter();
                 continue;
             case 5:
                 primary->removePassenger();
