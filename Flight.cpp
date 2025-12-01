@@ -123,10 +123,13 @@ void Flight::addPassenger() {
 
     Seat*& s = seats.at(row - 1).at(col_index);
 
-    s = new Seat(row, seat);
+    if (s == nullptr) {
+        s = new Seat(row, seat);
+    }
     if (s->isEmpty()) {
         s->setOccupant(p);
-    } else {
+    } 
+    else {
         cout << "The seat chosen is occupied \nPlease re-enter the passenger info.\n" << endl;
         delete p;
     }
