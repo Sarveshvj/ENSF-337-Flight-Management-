@@ -66,8 +66,8 @@ void Passenger::setLastName(const string& last) {
 void Passenger::setPhone(const string& phone_num) {
     phone = phone_num;
 }
-void Passenger::setId(const string& num){
-    id = num;
+void Passenger::setId(const string& idNum){
+    id = idNum;
 }
 
 void  Passenger::setRow(int r){
