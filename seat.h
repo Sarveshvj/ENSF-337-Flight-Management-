@@ -53,19 +53,12 @@ class Seat {
     PROMISES: Sets Occupant to P
     */
 
-<<<<<<< HEAD
-    
-
     bool isEmpty() const;
     /*
     PROMISES: Returns True if Occupant is a null ptr, otherweise returns false 
     */
-=======
-    void removeOccupant();
 
     bool isEmpty() const;
     /* PROMISIES: Will return True if occupant points to nothing, otherwise returns False*/
->>>>>>> 77c5bf01d2baca6cd5935cd63aefe5320151a214
-
 }; 
 #endif
