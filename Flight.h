@@ -20,26 +20,58 @@ private:
 public:
     // Ctors
     Flight();
-    Flight(std::string& id, int rows, int cols, const Route& r);
+    // PROMISES: Creates an empty Flight object with default values.
+    // flightID = empty string, numRows = 0, seatsPerRow = 0,
+    // route is default constructed, and seats vector is empty.
 
+    Flight(string& id, int rows, int cols, const Route& r);
+    // REQUIRES: rows > 0, cols > 0.
+    // PROMISES: Initializes a Flight object using the given
+    // id, row count, seat count per row, and route.
+    // Allocates a rows x cols 2D vector of Seat* initialized to nullptr.
+    
     // Destructor
     ~Flight();
+    // PROMISES: Deallocates all dynamically allocated Seat objects stored
+    // in the seats 2D vector. Ensures no memory leaks by deleting all Seat*
+    // before program termination.
     
     // Getters
     std::string getFlightID() const;
+    // PROMISES: Returns the flight ID stored for this flight.
+
     int getNumRows() const;
+    // PROMISES: Returns the number of seat rows in the aircraft.
+
     int getSeatsPerRow() const;
+    // PROMISES: Returns the number of seats per row.
+
     const Route& getRoute() const;
+    // PROMISES: Returns a const reference to the flight's Route object.
+
     const vector<vector<Seat*>>& getSeats() const;
+    // PROMISES: Returns a const reference to the 2D vector storing Seat pointers.
+    // Caller must not delete or modify these pointers directly.
+
 
     // Setters
     void setFlightID(const string& id);
+    // REQUIRES: id is not empty.
+    // PROMISES: Updates the flightID with the new value.
+
     void setNumRows(int rows);
+    // REQUIRES: rows > 0.
+    // PROMISES: Updates numRows. Does NOT reallocate seats vector.
+
     void setSeatsPerRow(int cols);
+    // REQUIRES: cols > 0.
+    // PROMISES: Updates seatsPerRow. Does NOT reallocate seats vector.
+
     void setRoute(const Route& r);
+    // PROMISES: Replaces the current Route with the provided Route object.
+
 
     // Helper / other functions
-
     void addPassengerFromFile(Passenger& p);
     //REQUIRES: A passenger object
     //PROMISES: Checks the validity of the row and seat letter for the passenger
