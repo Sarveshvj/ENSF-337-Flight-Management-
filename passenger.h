@@ -14,7 +14,7 @@ class Passenger{
 
     string phone;
 
-    int id;
+    string id;
 
     int row;
 
@@ -23,7 +23,7 @@ class Passenger{
     public:
     Passenger();
 
-    Passenger(const string& first, const string& last, const string& phone_num, int idNum, int rowNumber, char seatLetter);
+    Passenger(const string& first, const string& last, const string& phone_num, const string& idNum, int rowNumber, char seatLetter);
 
     string getFirstName() const;
 
@@ -31,7 +31,7 @@ class Passenger{
 
     string getPhone() const;
 
-    int getId()const;
+    string getId()const;
 
     int getRow()const;
 
@@ -43,7 +43,7 @@ class Passenger{
 
     void setPhone(const string& phone_num);
 
-    void setId(int num);
+    void setId(const string& num);
 
     void setRow(int r);
     

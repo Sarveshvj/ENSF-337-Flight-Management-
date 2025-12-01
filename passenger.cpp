@@ -7,14 +7,14 @@ Passenger::Passenger(){
 
     phone = " ";
     
-    id = 0;
+    id = "";
 
     row = 0;
     
     seat = 0;
 }
 
-Passenger::Passenger(const string& first, const string& last, const string& phone_num, int idNum, int rowNumber, char seatLetter){
+Passenger::Passenger(const string& first, const string& last, const string& phone_num, const string& idNum, int rowNumber, char seatLetter){
     firstname = first;
 
     lastname = last;
@@ -39,7 +39,7 @@ string Passenger::getLastName() const {
 string Passenger::getPhone() const {
     return phone;
 }
-int Passenger::getId() const{
+string Passenger::getId() const{
     return id;
 }
 
@@ -61,7 +61,7 @@ void Passenger::setLastName(const string& last) {
 void Passenger::setPhone(const string& phone_num) {
     phone = phone_num;
 }
-void Passenger::setId(int num){
+void Passenger::setId(const string& num){
     id = num;
 }
 

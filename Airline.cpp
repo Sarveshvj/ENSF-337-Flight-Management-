@@ -65,8 +65,7 @@ void Airline::passengerFromfile(const string& filename) {
     }
 
     string flightID;
-    string first, last, phone, seatCode;
-    int id;
+    string first, last, phone, seatCode, id;
 
     while (fin >> flightID >> first >> last >> phone >> seatCode >> id) {
 

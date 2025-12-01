@@ -75,22 +75,40 @@ void Flight::setRoute(const Route& r) {
 
 // Helper Functions
 void Flight::addPassenger() {
-    int id, row;
-    string fname, lname, phone_num;
+    int row;
+    string fname, lname, phone_num, id;
     char seat;
-    cout << "Please enter the passenger id: ";
-    cin >> id;
-    cout << "Please enter the passenger first name: ";
-    cin >> fname;
-    cout << "Please enter the passenger last name: ";
-    cin >> lname;
-    cout << "Please enter the passenger phone number: ";
-    cin >> phone_num;
-    cout << "Enter the passenger's desired row: ";
-    cin >> row;
-    cout << "Enter the passenger's desired seat: ";
-    cin >> seat;
-
+    while(1){
+        cout << "Please enter the passenger id: ";
+        cin >> id;
+        if(id.size() != 5){
+            cout<<"Please enter a valid 5 character id";
+            continue;
+        }
+        cout << "Please enter the passenger first name: ";
+        cin >> fname;
+        if(fname.empty()){
+            cout<<"Please enter a valid first name";
+            continue;
+        }
+        cout << "Please enter the passenger last name: ";
+        cin >> lname;
+        if(fname.empty()){
+            cout<<"Please enter a valid last name";
+            continue;
+        }
+        cout << "Please enter the passenger phone number: ";
+        cin >> phone_num;
+        if(phone_num.size() != 12){
+            cout<<"Please enter a valid phone number, in format 123-456-7890";
+            continue;
+        }
+        cout << "Enter the passenger's desired row: ";
+        cin >> row;
+        cout << "Enter the passenger's desired seat: ";
+        cin >> seat;
+        break;
+    }
     Passenger* p = new Passenger(fname, lname, phone_num, id, row, seat);
 
     int col_index = seatindex(seat);
@@ -146,7 +164,7 @@ void Flight::addPassengerFromFile(Passenger& p) {
 }
 
 void Flight::removePassenger() {
-    int pid;
+    string pid;
     while (1) {
         cout << "Please enter the id of the passenger that needs to be removed: ";
         cin >> pid;
@@ -175,10 +193,27 @@ void Flight::removePassenger() {
 }
 
 void Flight::displaySeatMap() const {
-    for (int i = 0; i < numRows; i++) {
-        cout << "+---+---+---+---+---+---+ \n" << endl;
+    cout << "\nSeat map for flight " << flightID << "\n\n";
 
-        for (int j = 0; j < seatsPerRow; j++) {
+    cout << "     ";
+    for (int j = 0; j < seatsPerRow; ++j) {
+        char seatLetter = 'A' + j;
+        cout << "  " << seatLetter << " ";
+    }
+    cout << '\n';
+
+    for (int i = 0; i < numRows; ++i) {
+        cout << "    ";
+        for (int j = 0; j < seatsPerRow; ++j) {
+            cout << "+---";
+        }
+        cout << "+\n";
+        if (i + 1 < 10)
+            cout << "  " << (i + 1) << " ";   
+        else
+            cout << " " << (i + 1) << " ";    
+
+        for (int j = 0; j < seatsPerRow; ++j) {
             Seat* s = seats.at(i).at(j);
             cout << "| ";
             if (s && !s->isEmpty()) {
@@ -190,7 +225,14 @@ void Flight::displaySeatMap() const {
         }
         cout << "|\n";
     }
-    cout << "+---+---+---+---+---+---+" << endl;
+
+    cout << "    ";
+    for (int j = 0; j < seatsPerRow; ++j) {
+        cout << "+---";
+    }
+    cout << "+\n";
+
+    cout << "\nX = occupied seat\n";
 }
 
 void Flight::displayPassengers() const {
@@ -223,6 +265,7 @@ void Flight::displayPassengers() const {
                      << setw(8)  << p->getId() << endl;
             }
         }
+        cout << "--------------------------------------------------------------\n";
     }
 }
 
