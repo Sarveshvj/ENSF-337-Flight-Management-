@@ -33,10 +33,6 @@ void Seat::setOccupant(Passenger* p){
     occupant = p;
 }
 
-void Seat::removeOccupant(){
-    occupant = nullptr;
-}
-
 bool Seat::isEmpty() const{
     return occupant == nullptr;
 }
