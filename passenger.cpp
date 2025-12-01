@@ -14,11 +14,16 @@ Passenger::Passenger(){
     seat = 0;
 }
 
-Passenger::Passenger(const string& first, const string& last, const string& phone_num, const string& idNum, int rowNumber, char seatLetter){
+Passenger::Passenger(const string& first, const string& last, string& phone_num, const string& idNum, int rowNumber, char seatLetter){
     firstname = first;
 
     lastname = last;
-
+    
+    for(int i = 0; i < phone_num.size(); i++){
+        if(phone_num.at(i) == ' '){
+            phone_num.at(i) = '- ';
+        }
+    }
     phone = phone_num;
 
     id = idNum;

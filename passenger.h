@@ -23,7 +23,7 @@ class Passenger{
     public:
     Passenger();
 
-    Passenger(const string& first, const string& last, const string& phone_num, const string& idNum, int rowNumber, char seatLetter);
+    Passenger(const string& first, const string& last, string& phone_num, const string& idNum, int rowNumber, char seatLetter);
 
     string getFirstName() const;
 

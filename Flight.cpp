@@ -100,7 +100,7 @@ void Flight::addPassenger() {
         cout << "Please enter the passenger phone number: ";
         cin >> phone_num;
         if(phone_num.size() != 12){
-            cout<<"Please enter a valid phone number, in format 123-456-7890\n";
+            cout<<"Please enter a valid phone number, in format 123 456 7890\n";
             continue;
         }
         cout << "Enter the passenger's desired row: ";
