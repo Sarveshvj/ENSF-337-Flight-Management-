@@ -116,7 +116,7 @@ void Flight::addPassenger() {
             isdigit(phone_num[10]) && isdigit(phone_num[11]);
 
         if (!phoneValid) {
-            cout << "Please enter a valid phone number, in format 123 456 7890\n";
+            cout << "Please enter a valid phone number, in format (123 456 7890)\n";
             cin.clear();
             cin.ignore(100, '\n');
             continue;
@@ -177,10 +177,6 @@ void Flight::addPassengerFromFile(Passenger& p) {
     if (s->isEmpty()) {
         Passenger* newP = new Passenger(p); 
         s->setOccupant(newP);
-    } else {
-        cout << "Seat " << row << col
-             << " on flight " << flightID
-             << " is already occupied. Skipping duplicate from file.\n";
     }
 }
 
@@ -276,7 +272,7 @@ void Flight::displayPassengers() const {
 
     cout << "--------------------------------------------------------------\n";
 
-    std::vector<Passenger*> plist;
+    vector<Passenger*> plist;
 
     for (int i = 0; i < numRows; ++i) {
         for (int j = 0; j < seatsPerRow; ++j) {
