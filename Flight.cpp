@@ -123,9 +123,7 @@ void Flight::addPassenger() {
 
     Seat*& s = seats.at(row - 1).at(col_index);
 
-    if (s == nullptr) {
-        s = new Seat(row, seat);
-    }
+    s = new Seat(row, seat);
     if (s->isEmpty()) {
         s->setOccupant(p);
     } else {
@@ -174,10 +172,7 @@ void Flight::removePassenger() {
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < seatsPerRow; j++) {
                 s = seats.at(i).at(j);
-                if (s == nullptr) {
-                    cout << "Internal error: seat not initialized.\n" << endl;
-                    return;
-                }
+
                 Passenger* p = s->getOccupant();
                 if (p != nullptr && pid == p->getId()) {
                     cout << "Passenger " << p->getFirstName() << " " << p->getLastName()
