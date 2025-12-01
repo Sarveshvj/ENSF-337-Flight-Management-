@@ -265,6 +265,7 @@ void Flight::displayPassengers() const {
                      << setw(8)  << p->getId() << endl;
             }
         }
+        cout << "--------------------------------------------------------------\n";
     }
 }
 
