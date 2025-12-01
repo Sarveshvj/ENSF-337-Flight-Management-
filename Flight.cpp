@@ -84,6 +84,7 @@ void Flight::addPassenger() {
         if(id.size() != 5){
             cout<<"Please enter a valid 5 character id\n";
             cin.clear();
+            cin.ignore(100, '\n');
             continue;
         }
         cout << "Please enter the passenger first name: ";
@@ -91,6 +92,7 @@ void Flight::addPassenger() {
         if(fname.at(0) == ' '){
             cout<<"Please enter a valid first name\n";
             cin.clear();
+            cin.ignore(100, '\n');
             continue;
         }
         cout << "Please enter the passenger last name: ";
@@ -98,6 +100,7 @@ void Flight::addPassenger() {
         if(lname.at(0) == ' '){
             cout<<"Please enter a valid last name\n";
             cin.clear();
+            cin.ignore(100, '\n');
             continue;
         }
         cout << "Please enter the passenger phone number: ";
@@ -114,6 +117,7 @@ void Flight::addPassenger() {
         if (!phoneValid) {
             cout << "Please enter a valid phone number, in format 123 456 7890\n";
             cin.clear();
+            cin.ignore(100, '\n');
             continue;
         }
         cout << "Enter the passenger's desired row: ";
@@ -131,6 +135,7 @@ void Flight::addPassenger() {
              << " and seat between A and "
              << char('A' + seatsPerRow - 1) << ".\n";
         cin.clear();
+        cin.ignore(100, '\n');
         delete p;
         return;
     }
@@ -206,6 +211,8 @@ void Flight::removePassenger() {
             }
         }
         cout << "Passenger was not found please retry" << endl;
+        cin.clear();
+        cin.ignore(100, '\n');
     }
 }
 
