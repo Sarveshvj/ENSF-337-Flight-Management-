@@ -83,24 +83,37 @@ void Flight::addPassenger() {
         cin >> id;
         if(id.size() != 5){
             cout<<"Please enter a valid 5 character id\n";
+            cin.clear();
             continue;
         }
         cout << "Please enter the passenger first name: ";
         cin >> fname;
         if(fname.at(0) == ' '){
             cout<<"Please enter a valid first name\n";
+            cin.clear();
             continue;
         }
         cout << "Please enter the passenger last name: ";
         cin >> lname;
         if(lname.at(0) == ' '){
             cout<<"Please enter a valid last name\n";
+            cin.clear();
             continue;
         }
         cout << "Please enter the passenger phone number: ";
         cin >> phone_num;
-        if(phone_num.size() != 12 || phone_num.at(3) != ' ' || phone_num.at(7) != ' '){
-            cout<<"Please enter a valid phone number, in format 123 456 7890\n";
+        bool phoneValid =
+            phone_num.size() == 12 &&
+            isdigit(phone_num[0]) && isdigit(phone_num[1]) && isdigit(phone_num[2]) &&
+            phone_num[3] == ' ' &&
+            isdigit(phone_num[4]) && isdigit(phone_num[5]) && isdigit(phone_num[6]) &&
+            phone_num[7] == ' ' &&
+            isdigit(phone_num[8]) && isdigit(phone_num[9]) &&
+            isdigit(phone_num[10]) && isdigit(phone_num[11]);
+
+        if (!phoneValid) {
+            cout << "Please enter a valid phone number, in format 123 456 7890\n";
+            cin.clear();
             continue;
         }
         cout << "Enter the passenger's desired row: ";
@@ -117,6 +130,7 @@ void Flight::addPassenger() {
         cout << "Invalid row/seat. Row must be between 1 and " << numRows
              << " and seat between A and "
              << char('A' + seatsPerRow - 1) << ".\n";
+        cin.clear();
         delete p;
         return;
     }
