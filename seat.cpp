@@ -1,3 +1,5 @@
+//seat.cpp
+
 #include "seat.h"
 #include "passenger.h"
 
