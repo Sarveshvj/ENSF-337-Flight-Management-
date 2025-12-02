@@ -57,8 +57,5 @@ class Seat {
     /*
     PROMISES: Returns True if Occupant is a null ptr, otherweise returns false 
     */
-
-    bool isEmpty() const;
-    /* PROMISIES: Will return True if occupant points to nothing, otherwise returns False*/
 }; 
 #endif
